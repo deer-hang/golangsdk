@@ -16,6 +16,14 @@ func actionURL(c *golangsdk.ServiceClient, resourceType, id string) string {
 	return c.ServiceURL(c.ProjectID, resourceType, id, "tags/action")
 }
 
+// supported resourceType: "private-certificate-authorities", "private-certificates"
+func actionInURL(c *golangsdk.ServiceClient, action, resourceType, id string) string {
+	if hasProjectID(c) {
+		return c.ServiceURL(resourceType, id, "tags", action)
+	}
+	return c.ServiceURL(c.ProjectID, resourceType, id, "tags", action)
+}
+
 func getURL(c *golangsdk.ServiceClient, resourceType, id string) string {
 	if hasProjectID(c) {
 		return c.ServiceURL(resourceType, id, "tags")
